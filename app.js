@@ -15,6 +15,23 @@ const game = document.querySelector("#game"),
     message = document.querySelector("#message"),
     hint = document.querySelector(".hint");
 
+// set up confetti settings
+let confettiSettings = {
+    "target": "my-canvas",
+    "max": "100",
+    "size": "1",
+    "animate": true,
+    "props": ["circle", "square", "triangle", "line"],
+    "colors": [
+        [165, 104, 246],
+        [230, 61, 135],
+        [0, 199, 228],
+        [253, 214, 126]
+    ],
+    "clock": "35"
+};
+// assign confetti variable
+const confetti = new ConfettiGenerator(confettiSettings);
 
 // assign UI min and max
 minNum.textContent = min;
@@ -45,24 +62,8 @@ guessBtn.addEventListener("click", function() {
             gameOver(true, `${winningNum} is correct. You win!`);
             // change text color
             message.style.color = "green";
-            // create confetti setting
+            // call confetti on win
             if (guessesLeft > 0 && guess === winningNum) {
-                let confettiSettings = {
-                    "target": "my-canvas",
-                    "max": "100",
-                    "size": "1",
-                    "animate": true,
-                    "props": ["circle", "square", "triangle", "line"],
-                    "colors": [
-                        [165, 104, 246],
-                        [230, 61, 135],
-                        [0, 199, 228],
-                        [253, 214, 126]
-                    ],
-                    "clock": "35"
-                };
-                // assign confetti variable
-                let confetti = new ConfettiGenerator(confettiSettings);
                 // render confetti
                 confetti.render();
             }
