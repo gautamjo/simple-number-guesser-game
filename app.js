@@ -30,7 +30,7 @@ game.addEventListener("mousedown", function(e) {
 // listen for guess
 guessBtn.addEventListener("click", function() {
     let guess = +guessInput.value;
-    console.log(guess);
+    //console.log(guess);
 
     // validate input
     if (guess < min || guess > max) {
@@ -83,10 +83,10 @@ guessBtn.addEventListener("click", function() {
                 // give hint
                 if (guess < winningNum) {
                     giveHint("Guess is lower than than winning number");
-                    console.log("Guess Less");
+                    //console.log("Guess Less");
                 } else if (guess > winningNum) {
                     giveHint("Guess is higher than the winning number");
-                    console.log("Guess More");
+                    //console.log("Guess More");
                 }
                 // guesses left, game continues
                 // change border color
