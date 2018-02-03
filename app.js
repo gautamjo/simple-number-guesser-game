@@ -23,7 +23,6 @@ maxNum.textContent = max;
 game.addEventListener("mousedown", function(e) {
     if (e.target.className === "play-again") {
         window.location.reload();
-        confetti.clear();
     }
 });
 
