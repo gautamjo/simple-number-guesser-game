@@ -24,8 +24,6 @@ maxNum.textContent = max;
 game.addEventListener("mousedown", function(e) {
     if (e.target.className === "play-again") {
         window.location.reload();
-        setMessage("");
-        confetti.clear();
     }
 });
 
@@ -40,41 +38,46 @@ guessBtn.addEventListener("click", function() {
         giveHint("");
     } else {
         if (guess === winningNum) {
+            // remove hint
+            giveHint("");
             // call gameOver function
             gameOver(true, `${winningNum} is correct. You win!`);
             // change text color
             message.style.color = "green";
             // create confetti setting
-            let confettiSettings = {
-                "target": "my-canvas",
-                "max": "100",
-                "size": "1",
-                "animate": true,
-                "props": ["circle", "square", "triangle", "line"],
-                "colors": [
-                    [165, 104, 246],
-                    [230, 61, 135],
-                    [0, 199, 228],
-                    [253, 214, 126]
-                ],
-                "clock": "35"
-            };
-            // assign confetti variable
-            let confetti = new ConfettiGenerator(confettiSettings);
-            // render confetti
-            confetti.render();
-            // remove hint
-            giveHint("");
+            if (guessesLeft > 0 && guess === winningNum) {
+                let confettiSettings = {
+                    "target": "my-canvas",
+                    "max": "100",
+                    "size": "1",
+                    "animate": true,
+                    "props": ["circle", "square", "triangle", "line"],
+                    "colors": [
+                        [165, 104, 246],
+                        [230, 61, 135],
+                        [0, 199, 228],
+                        [253, 214, 126]
+                    ],
+                    "clock": "35"
+                };
+                // assign confetti variable
+                let confetti = new ConfettiGenerator(confettiSettings);
+                // render confetti
+                confetti.render();
+            }
+
         } else {
             // wrong number guessed substract 1
-            guessesLeft--;
+            if (guessesLeft) {
+                guessesLeft--;
+            }
             if (guessesLeft === 0) {
+                // remove hint
+                giveHint("");
                 // call gameOver function
                 gameOver(false, `Game over, you lost! The correct number was ${winningNum}`);
                 // change bg color when user loses
                 document.querySelector("body").style.backgroundColor = "#F4D03F";
-                // remove hint
-                giveHint("");
             } else {
                 // give hint
                 if (guess < winningNum) {
